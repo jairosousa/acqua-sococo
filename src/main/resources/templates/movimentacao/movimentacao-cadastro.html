@@ -42,7 +42,7 @@
 							<div class="row">
 								<div class="col-lg-4">
 									<div class="card-img-bottom" style="text-align: center">
-										<img th:src="@{/avatar-prod/load/{id}(id=${movimentacao.produto.avatar.id})}" />
+										<img class="img-rounded" style="width: 238px; height: 238px" th:src="@{/avatar-prod/load/{id}(id=${movimentacao.produto.avatar.id})}" />
 									</div>
 								</div>
 
@@ -50,28 +50,28 @@
 								<div class="col-lg-8">
 									<!-- Quando mudar o cursor, fazer uma consulta para obter o produto por codigo e mostrar as infs dele na tela -->
 									<div class="form-group">
-										<label for="produto" class="col-lg-3 control-label">Produto</label>
+										<label for="nome" class="col-lg-3 control-label">Produto</label>
 										<div class="col-lg-9">
-											<input type="text" class="form-control" readonly="readonly" th:field="*{produto.nome}" />
+											<input id="nome" type="text" class="form-control" readonly="readonly" th:field="*{produto.nome}" />
 										</div>
 									</div>
 									
 									<div class="form-group">
-										<label for="produto" class="col-lg-3 control-label">Código de Barra</label>
+										<label for="codigoDeBarras" class="col-lg-3 control-label">Código de Barra</label>
 										<div class="col-lg-9">
-											<input type="text" class="form-control" readonly="readonly" th:field="*{produto.codigoDeBarras}" />
+											<input id="codigoDeBarras" type="text" class="form-control" readonly="readonly" th:field="*{produto.codigoDeBarras}" />
 										</div>
 									</div>
 									
 									<div class="form-group">
 										<label for="descricao" class="col-lg-3 control-label">Descrição</label>
 										<div class="col-lg-9">
-											<input type="text" class="form-control" readonly="readonly" th:field="*{produto.descricao}" />
+											<input id="descricao" type="text" class="form-control" readonly="readonly" th:field="*{produto.descricao}" />
 										</div>
 									</div>
 
 									<div class="form-group">
-										<label for="observacao" class="col-lg-3 control-label">Nota Fiscal</label>
+										<label for="notaFiscal" class="col-lg-3 control-label">Nota Fiscal</label>
 										<div class="col-lg-9">
 											<input type="text" class="form-control" id="notaFiscal" th:field="*{notaFiscal}" placeholder="Nota Fiscal" />
 										</div>

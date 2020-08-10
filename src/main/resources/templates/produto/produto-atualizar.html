@@ -79,7 +79,29 @@
 								class="form-control" id="descricao" th:field="*{descricao}"
 								placeholder="Descrição" />
 						</div>
+						<div class="form-group col-lg-11"
+							 th:classappend="${#fields.hasErrors('marca')} ? has-error">
+							<label for="marca">Marca</label> <input type="text"
+																	class="form-control" id="marca" th:field="*{marca}"
+																	placeholder="Marca" />
+						</div>
 
+						<div class="form-group col-lg-11"
+							 th:classappend="${#fields.hasErrors('volume')} ? has-error">
+							<label for="marca">Volume</label>
+							<input type="text"
+								   class="form-control" id="volume" th:field="*{volume}"
+								   placeholder="Volume" />
+						</div>
+						<div class="form-group  col-lg-11">
+							<label for="categoria">Categorias</label>
+							<select class="form-control" name="categoria" id="categoria">
+								<option th:each="categoria : ${categorias}"
+										th:value="${categoria}" th:text="${categoria.descricao}"
+										th:field="*{categoria}"/>
+
+							</select>
+						</div>
 						
 						<div class="form-group col-lg-8">
 							 <button  type="submit" class="col-lg-5 btn btn-success"><i class="fa fa-floppy-o" aria-hidden="true"></i> ATUALIZAR</button>

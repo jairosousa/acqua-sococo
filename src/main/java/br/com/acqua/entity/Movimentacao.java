@@ -43,6 +43,14 @@ public class Movimentacao implements Serializable {
 	@OneToOne
 	private Usuario usuario;
 
+	public Movimentacao() {
+	}
+
+	public Movimentacao(Date dataHora, Produto produto) {
+		this.dataHora = dataHora;
+		this.produto = produto;
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -50,8 +58,6 @@ public class Movimentacao implements Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-
 
 	public Usuario getUsuario() {
 		return usuario;

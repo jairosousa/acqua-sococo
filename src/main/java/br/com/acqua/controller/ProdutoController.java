@@ -2,6 +2,7 @@ package br.com.acqua.controller;
 
 import br.com.acqua.entity.AvatarProd;
 import br.com.acqua.entity.Produto;
+import br.com.acqua.entity.enuns.Categoria;
 import br.com.acqua.service.AvatarProdService;
 import br.com.acqua.service.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -71,10 +73,11 @@ public class ProdutoController {
 		if (erros.hasErrors()) {
 			return CADASTRO_VIEW;
 		}
-		avatar = avatarService.getAvatarByUpload(file);
-		avatar.setId(produto.avatar.getId());
-		produto.setAvatar(avatar);
-
+		if (!file.isEmpty()) {
+			avatar = avatarService.getAvatarByUpload(file);
+			avatar.setId(produto.avatar.getId());
+			produto.setAvatar(avatar);
+		}
 		try {
 			produtoService.update(produto);
 			attributes.addFlashAttribute("mensagem", "Produto atualizado com sucesso!");
@@ -120,6 +123,11 @@ public class ProdutoController {
 		produtoService.delete(id);
 		attributes.addFlashAttribute("mensagem", "Produto excluido com sucesso!");
 		return "redirect:/produto";
+	}
+
+	@ModelAttribute("categorias")
+	public List<Categoria> todoStatusTitulo() {
+		return Arrays.asList(Categoria.values());
 	}
 	
 

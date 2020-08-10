@@ -51,6 +51,9 @@
 									<th class="text-center col-md-2">Codigo Barras</th>
 									<th class="text-center col-md-2">Nome</th>
 									<th class="text-center col-md-2">Descrição</th>
+									<th class="text-center col-md-2">Marca</th>
+									<th class="text-center col-md-2">Categoria</th>
+									<th class="text-center col-md-2">Volume</th>
 									<th class="text-center col-md-2">Data Cadastro</th>
 									<th class="text-center col-md-2">Operação</th>
 
@@ -70,6 +73,12 @@
 										th:text="${produto.nome}">1</td>
 									<td  class="text-center"
 										th:text="${produto.descricao}">1</td>
+									<td  class="text-center"
+										 th:text="${produto.marca}">1</td>
+									<td  class="text-center"
+										 th:text="${produto.categoria.descricao}">1</td>
+									<td  class="text-center"
+										 th:text="${produto.volume}">1</td>
 									<td  class="text-center"
 										th:text="${{produto.dataCadastro}}"></td>
 										

@@ -1,5 +1,7 @@
 package br.com.acqua.service;
 
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,10 +14,16 @@ import org.springframework.web.multipart.MultipartFile;
 
 import br.com.acqua.entity.AvatarProd;
 import br.com.acqua.repository.AvatarProdRepository;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
+
+import javax.imageio.ImageIO;
 
 @Service
 @Transactional(readOnly = true, propagation = Propagation.REQUIRED)
 public class AvatarProdService {
+
+	private static final int IMG_WIDTH = 100;
+	private static final int IMG_HEIGHT = 100;
 
 	@Autowired
 	private AvatarProdRepository avatarRepository;
@@ -48,6 +56,7 @@ public class AvatarProdService {
 
 		return avatar;
 	}
+
 
 	public AvatarProd findById(Long id) {
 		return avatarRepository.findOne(id);

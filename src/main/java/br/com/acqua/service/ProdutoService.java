@@ -65,14 +65,6 @@ public class ProdutoService {
 	@Transactional(readOnly = false)
 	@Modifying
 	public void update(Produto produto) {
-
-//		Produto one = produtosRepository.findOne(produto.getId());
-
-//		one.setCodigoDeBarras(produto.getCodigoDeBarras());
-//		one.setNome(produto.getNome());
-//		one.setDescricao(produto.getDescricao());
-//		one.setAvatar(produto.avatar);
-
 		try {
 			produtosRepository.save(produto);
 		} catch (DataIntegrityViolationException e) {
