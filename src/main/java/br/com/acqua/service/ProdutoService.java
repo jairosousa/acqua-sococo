@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,7 +30,7 @@ public class ProdutoService {
 			produtosRepository.save(produto);
 
 		} catch (DataIntegrityViolationException e) {
-			throw new IllegalArgumentException("Formato de data inválido");
+			throw new IllegalArgumentException("algo deu errado tente mais tarde!");
 		}
 	}
 
@@ -61,4 +62,21 @@ public class ProdutoService {
 		return produtosRepository.findByAvatar(avatar);
 	}
 
+	@Transactional(readOnly = false)
+	@Modifying
+	public void update(Produto produto) {
+
+//		Produto one = produtosRepository.findOne(produto.getId());
+
+//		one.setCodigoDeBarras(produto.getCodigoDeBarras());
+//		one.setNome(produto.getNome());
+//		one.setDescricao(produto.getDescricao());
+//		one.setAvatar(produto.avatar);
+
+		try {
+			produtosRepository.save(produto);
+		} catch (DataIntegrityViolationException e) {
+			throw new IllegalArgumentException("algo deu errado tente mais tarde!");
+		}
+	}
 }
