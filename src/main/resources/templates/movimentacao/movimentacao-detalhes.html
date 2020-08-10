@@ -45,24 +45,24 @@
 							<div class="row">
 
 								<div class="col-lg-4"  style="text-align: center">
-										<img style="width: 238px; height: 238px" th:src="@{/avatar-prod/load/{id}(id=${movimentacao.produto.avatar.id})}" />
+										<img th:alt="imagem" style="width: 238px; height: 238px" th:src="@{/avatar-prod/load/{id}(id=${movimentacao.produto.avatar.id})}" />
 								</div>
 
 
 								<div class="col-lg-8">
 									<div class="form-group">
-										<label for="produto" class="col-lg-3 control-label">Produto</label>
+										<label for="nome" class="col-lg-3 control-label">Produto</label>
 										<div class="col-lg-9">
-											<input type="text" class="form-control" readonly="readonly"
+											<input id="nome" type="text" class="form-control" readonly="readonly"
 												th:field="*{produto.nome}" />
 										</div>
 
 									</div>
 									<div class="form-group">
-										<label for="produto" class="col-lg-3 control-label">Código
+										<label for="codigoDeBarras" class="col-lg-3 control-label">Código
 											de Barra</label>
 										<div class="col-lg-9">
-											<input type="text" class="form-control" readonly="readonly"
+											<input id="codigoDeBarras" type="text" class="form-control" readonly="readonly"
 												th:field="*{produto.codigoDeBarras}" />
 										</div>
 
@@ -70,14 +70,14 @@
 									<div class="form-group">
 										<label for="descricao" class="col-lg-3 control-label">Descrição</label>
 										<div class="col-lg-9">
-											<input type="text" class="form-control" readonly="readonly"
+											<input id="descricao" type="text" class="form-control" readonly="readonly"
 												th:field="*{produto.descricao}" />
 										</div>
 
 									</div>
 
 									<div class="form-group">
-										<label for="observacao" class="col-lg-3 control-label">Nota
+										<label for="notaFiscal" class="col-lg-3 control-label">Nota
 											Fiscal</label>
 										<div class="col-lg-9">
 
