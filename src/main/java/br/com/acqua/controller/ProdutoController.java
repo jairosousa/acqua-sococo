@@ -1,10 +1,14 @@
 package br.com.acqua.controller;
 
+import br.com.acqua.dto.ArquivosMultipart;
 import br.com.acqua.entity.AvatarProd;
+import br.com.acqua.entity.LayoutProd;
 import br.com.acqua.entity.Produto;
 import br.com.acqua.entity.enuns.Categoria;
 import br.com.acqua.service.AvatarProdService;
 import br.com.acqua.service.ProdutoService;
+import br.com.acqua.service.StorageService;
+import javafx.scene.ImageCursor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
@@ -30,6 +34,9 @@ public class ProdutoController {
 	@Autowired
 	private AvatarProdService avatarService;
 
+	@Autowired
+	private StorageService storageService;
+
 	@GetMapping("/novo")
 	public ModelAndView novo(@ModelAttribute("avatar") AvatarProd avatar) {
 		ModelAndView view = new ModelAndView(CADASTRO_VIEW);
@@ -47,13 +54,18 @@ public class ProdutoController {
 
 	@PostMapping
 	public String salvar(@Validated Produto produto, Errors erros, RedirectAttributes attributes,
-			@RequestParam(value = "file", required = false) MultipartFile file) {
+			@RequestParam(value = "file", required = false) ArquivosMultipart files) {
 		AvatarProd avatar = new AvatarProd();
+		LayoutProd layout = new LayoutProd();
 		if (erros.hasErrors()) {
 			return CADASTRO_VIEW;
 		}
-			avatar = avatarService.getAvatarByUpload(file);
+			//TODO verificar salvar sem imaagem
+			avatar = avatarService.getAvatarByUpload(files.getFileAvt());
 			produto.setAvatar(avatar);
+
+
+		layout = storageService.store(files.getFileLayout());
 
 		try {
 			produtoService.salvar(produto);

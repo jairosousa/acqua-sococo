@@ -47,6 +47,10 @@ public class Produto implements Serializable {
 	@JoinColumn(name = "avatar_id")
 	public AvatarProd avatar;
 
+	@OneToOne(cascade = { CascadeType.ALL, CascadeType.REMOVE }, optional = true)
+	@JoinColumn(name = "layout_id")
+	public LayoutProd layout;
+
 	@Column(name = "imagem_content_type")
 	private String imagemContentType;
 
@@ -125,6 +129,14 @@ public class Produto implements Serializable {
 
 	public void setMovimentacoes(List<Movimentacao> movimentacoes) {
 		this.movimentacoes = movimentacoes;
+	}
+
+	public LayoutProd getLayout() {
+		return layout;
+	}
+
+	public void setLayout(LayoutProd layout) {
+		this.layout = layout;
 	}
 
 	public Categoria getCategoria() {
