@@ -6,8 +6,6 @@ import javax.persistence.*;
 @Table(name = "layouts")
 public class LayoutProd {
 
-    private static final long serialVersionUID = 1L;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -25,6 +23,9 @@ public class LayoutProd {
     }
 
     public String getFilename() {
+        if (filename.length() > 10)
+        return filename.substring(0, 10).concat("...");
+
         return filename;
     }
 

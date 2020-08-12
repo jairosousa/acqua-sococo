@@ -55,6 +55,7 @@
 									<th class="text-center col-md-2">Categoria</th>
 									<th class="text-center col-md-2">Volume</th>
 									<th class="text-center col-md-2">Data Cadastro</th>
+									<th class="text-center col-md-2">Layout</th>
 									<th class="text-center col-md-2">Operação</th>
 
 								</tr>
@@ -81,6 +82,9 @@
 										 th:text="${produto.volume}">1</td>
 									<td  class="text-center"
 										th:text="${{produto.dataCadastro}}"></td>
+									<td  class="text-center">
+										<a th:href="${produto.layout.url}" th:text="${produto.layout.filename}" />
+									</td>
 										
 									<td  class="text-center">
 									<a class="btn btn-info btn-xs"

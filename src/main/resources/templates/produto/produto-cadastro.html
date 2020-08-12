@@ -48,6 +48,7 @@
 
 						<div class="row">
 							<div class="text-center col-lg-3 col-lg-offset-1">
+								<div class="row">
 								<div class="fileinput fileinput-new" data-provides="fileinput">
 									<div class="fileinput-new thumbnail" style="width: 238px; height: 218px;">
 										<img th:src="@{/imagens/default.png}" />
@@ -57,12 +58,28 @@
 										<span class="btn btn-primary btn-file"> 
 											<span class="fileinput-new">Selecione a imagem</span> 
 											<span class="fileinput-exists">Trocar</span> 
-											<input type="file" name="file" />
+											<input type="file" name="fileAvt" />
 										</span> 
 										<a href="#" class="btn btn-danger fileinput-exists" data-dismiss="fileinput">Remover</a>
 									</div>
 								</div>
-
+								</div>
+								<div class="row">
+									<div class="fileinput fileinput-new" data-provides="fileinput">
+										<div class="fileinput-new thumbnail" style="width: 238px; height: 218px;">
+											<img th:src="@{/imagens/default.png}" />
+										</div>
+										<div class="fileinput-preview fileinput-exists thumbnail" style="width: 238px; height: 218px;"></div>
+										<div>
+										<span class="btn btn-primary btn-file">
+											<span class="fileinput-new">Selecione arquivo layout</span>
+											<span class="fileinput-exists">Trocar</span>
+											<input type="file" name="fileLayout" />
+										</span>
+											<a href="#" class="btn btn-danger fileinput-exists" data-dismiss="fileinput">Remover</a>
+										</div>
+									</div>
+								</div>
 							</div>
 
 							<div class="form-cadprod col-lg-8">
@@ -109,7 +126,11 @@
 
 										</select>
 								</div>
-								
+
+<!--								<div class="form-group  col-lg-11">-->
+<!--									<label for="fileLayout">Inserir Layout</label>-->
+<!--									<input id="fileLayout" type="file" name="fileLayout" class="form-control"/>-->
+<!--								</div>-->
 								
 								<div class="form-group col-lg-8">
 									<button  type="submit" class="col-lg-5 btn btn-success"><i class="fa fa-floppy-o" aria-hidden="true"></i> SALVAR</button>
