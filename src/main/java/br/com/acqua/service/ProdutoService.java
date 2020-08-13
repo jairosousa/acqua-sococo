@@ -6,6 +6,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,8 +37,17 @@ public class ProdutoService {
 		}
 	}
 
+	public Page<Produto> findByPagination(int page, int size) {
+		Pageable pageable = new PageRequest(page, size);
+		return produtosRepository.findByEnabledOrderByIdDesc(Boolean.TRUE, pageable);
+	}
+
 	public List<Produto> findAll() {
 		return produtosRepository.findAll();
+	}
+
+	public List<Produto> findEnabled() {
+		return produtosRepository.findByEnabledOrderByIdDesc(Boolean.TRUE);
 	}
 
 	public void delete(Long id) {
@@ -70,5 +82,11 @@ public class ProdutoService {
 		} catch (DataIntegrityViolationException e) {
 			throw new IllegalArgumentException("algo deu errado tente mais tarde!");
 		}
+	}
+
+	public void updateEnable(Long id) {
+		System.out.println("Passou aqui");
+		produtosRepository.updateEnable(false, id);
+
 	}
 }

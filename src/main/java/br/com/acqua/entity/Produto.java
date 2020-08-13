@@ -1,19 +1,30 @@
 package br.com.acqua.entity;
 
-import br.com.acqua.entity.enuns.Categoria;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import org.hibernate.validator.constraints.NotEmpty;
-import org.springframework.format.annotation.DateTimeFormat;
-
-import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 /**
- * 
+ *
  * @author Jairo Sousa 06/01/2017
  */
 
@@ -43,29 +54,26 @@ public class Produto implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date dataCadastro;
 
-	@OneToOne(cascade = { CascadeType.ALL, CascadeType.REMOVE }, optional = true)
+	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.REMOVE }, optional = true)
 	@JoinColumn(name = "avatar_id")
 	public AvatarProd avatar;
 
-	@OneToOne(cascade = { CascadeType.ALL, CascadeType.REMOVE }, optional = true)
+	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.REMOVE }, optional = true)
 	@JoinColumn(name = "layout_id")
 	public LayoutProd layout;
 
 	@Column(name = "imagem_content_type")
 	private String imagemContentType;
 
-	@Column(name = "categoria")
-	@Enumerated(EnumType.STRING)
-	private Categoria categoria;
-
-	@Column(name = "marca")
-	private String marca;
-
-	@Column(name = "volume")
-	private String volume;
+	@Column(name = "enabled")
+	private boolean enabled;
 
 	@OneToMany(mappedBy = "produto", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	private List<Movimentacao> movimentacoes = new ArrayList<>();
+
+	public boolean isAtivo() {
+		return this.enabled;
+	}
 
 	public Long getId() {
 		return id;
@@ -115,6 +123,14 @@ public class Produto implements Serializable {
 		this.avatar = avatar;
 	}
 
+	public LayoutProd getLayout() {
+		return layout;
+	}
+
+	public void setLayout(LayoutProd layout) {
+		this.layout = layout;
+	}
+
 	public String getImagemContentType() {
 		return imagemContentType;
 	}
@@ -131,36 +147,12 @@ public class Produto implements Serializable {
 		this.movimentacoes = movimentacoes;
 	}
 
-	public LayoutProd getLayout() {
-		return layout;
+	public boolean isEnabled() {
+		return enabled;
 	}
 
-	public void setLayout(LayoutProd layout) {
-		this.layout = layout;
-	}
-
-	public Categoria getCategoria() {
-		return categoria;
-	}
-
-	public void setCategoria(Categoria categoria) {
-		this.categoria = categoria;
-	}
-
-	public String getMarca() {
-		return marca;
-	}
-
-	public void setMarca(String marca) {
-		this.marca = marca;
-	}
-
-	public String getVolume() {
-		return volume;
-	}
-
-	public void setVolume(String volume) {
-		this.volume = volume;
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
 	}
 
 	@Override

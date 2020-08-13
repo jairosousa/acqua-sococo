@@ -82,19 +82,30 @@ public class ProdutoController {
         }
     }
 
-
     @PostMapping("/update")
     public String update(@Validated Produto produto, Errors erros, RedirectAttributes attributes,
-                         @RequestParam(value = "file", required = false) MultipartFile file) {
-        AvatarProd avatar = new AvatarProd();
+                         @RequestParam(value = "fileAvt", required = false) MultipartFile fileAvt,
+                         @RequestParam(value = "fileLayout", required = false) MultipartFile fileLayout) {
         if (erros.hasErrors()) {
             return CADASTRO_VIEW;
         }
-        if (!file.isEmpty()) {
-            avatar = avatarService.getAvatarByUpload(file);
-            avatar.setId(produto.avatar.getId());
+        if (!fileAvt.isEmpty()) {
+            AvatarProd avatar = avatarService.getAvatarByUpload(fileAvt);
+            avatar.setId(produto.getAvatar().getId());
             produto.setAvatar(avatar);
         }
+
+        if (!fileLayout.isEmpty()) {
+            LayoutProd layout = storageService.store(fileLayout);
+            if (produto.getLayout().getId() != null) layout.setId(produto.getLayout().getId());
+            if (produto.getLayout().getFilename().equals("")) produto.getLayout().setFilename(null);
+            if (produto.getLayout().getFilename() != null) {
+                storageService.delete(produto.getLayout().getFilename());
+            }
+
+            produto.setLayout(layout);
+        }
+
         try {
             produtoService.update(produto);
             attributes.addFlashAttribute("mensagem", "Produto atualizado com sucesso!");

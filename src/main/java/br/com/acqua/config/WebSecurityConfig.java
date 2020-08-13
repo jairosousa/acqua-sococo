@@ -1,18 +1,17 @@
 package br.com.acqua.config;
 
+import br.com.acqua.config.security.CustonUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
-import br.com.acqua.config.security.CustonUserDetailsService;
-
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
-	
+
 	@Autowired
 	private CustonUserDetailsService userDetailsService;
-	
+
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.
@@ -35,7 +34,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 				.rememberMe()
 				.userDetailsService(userDetailsService);
 
-	}
+    }
 }
 
 

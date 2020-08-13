@@ -1,10 +1,14 @@
 package br.com.acqua.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Objects;
 
 @Entity
 @Table(name = "layouts")
-public class LayoutProd {
+public class LayoutProd implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,9 +27,6 @@ public class LayoutProd {
     }
 
     public String getFilename() {
-        if (filename.length() > 10)
-        return filename.substring(0, 10).concat("...");
-
         return filename;
     }
 
@@ -39,5 +40,18 @@ public class LayoutProd {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        LayoutProd that = (LayoutProd) o;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

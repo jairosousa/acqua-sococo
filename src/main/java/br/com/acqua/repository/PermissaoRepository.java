@@ -6,4 +6,6 @@ import br.com.acqua.entity.Permissao;
 
 public interface PermissaoRepository extends JpaRepository<Permissao, Long> {
 
+    Permissao findByNome(String nome);
+
 }

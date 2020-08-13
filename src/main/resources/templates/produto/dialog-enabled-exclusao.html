@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 
 <div class="modal fade" id="confirmacaoEnabledModal" tabindex="-1"
-	role="dialog">
-	
+	 role="dialog">
+
 	<div class="modal-dialog">
-	
+
 		<form th:attr="data-url-base=@{/produtos/enabled}" method="POST">
-			
+
 			<input type="hidden" th:name="${_csrf.parameterName}"
-						th:value="${_csrf.token}" />
+				   th:value="${_csrf.token}" />
 
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
+							aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
 					<h4 class="modal-title">Você tem certeza?</h4>
