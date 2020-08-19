@@ -12,8 +12,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+/**
+ * @Author Jairo Nascimento
+ * @Date 14/08/2020
+ */
+
 @Controller
 public class FileUploadController {
+
     private final StorageService storageService;
 
     @Autowired

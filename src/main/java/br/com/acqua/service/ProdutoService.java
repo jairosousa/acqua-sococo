@@ -1,92 +1,88 @@
 package br.com.acqua.service;
 
-import java.sql.Date;
-import java.time.LocalDate;
-import java.util.List;
-
+import br.com.acqua.entity.AvatarProd;
+import br.com.acqua.entity.Produto;
+import br.com.acqua.repository.ProdutoRepository;
+import br.com.acqua.repository.filter.ProdutoFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
-import br.com.acqua.entity.AvatarProd;
-import br.com.acqua.entity.Produto;
-import br.com.acqua.repository.ProdutoRepository;
-import br.com.acqua.repository.filter.ProdutoFilter;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.List;
 
 @Service
 public class ProdutoService {
 
-	@Autowired
-	private ProdutoRepository produtosRepository;
+    @Autowired
+    private ProdutoRepository produtosRepository;
 
-	public void salvar(Produto produto) {
+    @Autowired
+    private AvatarProdService avatarService;
 
-		try {
-			if (produto.getId() == null) {
-				produto.setDataCadastro(Date.valueOf(LocalDate.now()));
-			}
-			produtosRepository.save(produto);
+    public void salvar(Produto produto) {
 
-		} catch (DataIntegrityViolationException e) {
-			throw new IllegalArgumentException("algo deu errado tente mais tarde!");
-		}
-	}
+        try {
+            if (StringUtils.isEmpty(produto.getId())) {
+                produto.setDataCadastro(Date.valueOf(LocalDate.now()));
+                produto.setEnabled(true);
+            }
+            produtosRepository.save(produto);
 
-	public Page<Produto> findByPagination(int page, int size) {
-		Pageable pageable = new PageRequest(page, size);
-		return produtosRepository.findByEnabledOrderByIdDesc(Boolean.TRUE, pageable);
-	}
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Código de barra já existente");
+        }
+    }
 
-	public List<Produto> findAll() {
-		return produtosRepository.findAll();
-	}
+    public Page<Produto> findByPagination(int page, int size) {
+        Pageable pageable = new PageRequest(page, size);
+        return produtosRepository.findByEnabledOrderByIdDesc(Boolean.TRUE, pageable);
+    }
 
-	public List<Produto> findEnabled() {
-		return produtosRepository.findByEnabledOrderByIdDesc(Boolean.TRUE);
-	}
+    public List<Produto> findAll() {
+        return produtosRepository.findAll();
+    }
 
-	public void delete(Long id) {
-		produtosRepository.delete(id);
-	}
+    public List<Produto> findEnabled() {
+        return produtosRepository.findByEnabledOrderByIdDesc(Boolean.TRUE);
+    }
 
-	public Produto findById(Long id) {
-		return produtosRepository.findOne(id);
-	}
+    public void delete(Long id) {
+        produtosRepository.delete(id);
+    }
 
-	public Produto findByCodigo(ProdutoFilter filtro) {
-		String codigo = filtro.getCodigo() == null ? "%" : filtro.getCodigo();
-		return produtosRepository.findByCodigoDeBarras(codigo);
-	}
+    public Produto findById(Long id) {
+        return produtosRepository.findOne(id);
+    }
 
-	@Transactional(readOnly = false)
-	public void updateNomeAndDescricaoAndCodigoBarra(Produto produto) {
-		System.out.println(produto.getNome() + produto.getDescricao() + produto.getCodigoDeBarras() + produto.getId());
-		produtosRepository.updateNomeAndDescricaoAndCodigoBarra(produto.getNome(), produto.getDescricao(),
-				produto.getCodigoDeBarras(), produto.getId());
-	}
+    public Produto findByCodigo(ProdutoFilter filtro) {
+//        String codigo = filtro.getCodigo() == null ? "%" : filtro.getCodigo();
+        return produtosRepository.findByCodigoDeBarras(filtro.getCodigo());
+    }
 
-	public Produto findByAvatar(AvatarProd avatar) {
-		return produtosRepository.findByAvatar(avatar);
-	}
+    @Transactional(readOnly = false)
+    public void update(Produto produto) {
 
-	@Transactional(readOnly = false)
-	@Modifying
-	public void update(Produto produto) {
-		try {
-			produtosRepository.save(produto);
-		} catch (DataIntegrityViolationException e) {
-			throw new IllegalArgumentException("algo deu errado tente mais tarde!");
-		}
-	}
+        try {
+            produtosRepository.save(produto);
+        } catch (DataIntegrityViolationException e) {
+            throw new IllegalArgumentException("algo deu errado tente mais tarde!");
+        }
 
-	public void updateEnable(Long id) {
-		System.out.println("Passou aqui");
-		produtosRepository.updateEnable(false, id);
+    }
 
-	}
+    public Produto findByAvatar(AvatarProd avatar) {
+        return produtosRepository.findByAvatar(avatar);
+    }
+
+    public void updateEnable(Long id) {
+        produtosRepository.updateEnable(false, id);
+    }
+
 }

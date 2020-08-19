@@ -35,17 +35,17 @@ public class InicioController {
 
 		List<Movimentacao> movimentacoes = movimentacaoService.listar();
 		List<Produto> produtos = produtoService.findAll();
-		Usuario usuario = new Usuario();
+		Usuario usuario = new Usuario();	
 
 		int quantidadeMovimentacao = movimentacaoService.findAll().size();
 		int quantidadeProdutos = 0;
 
 		quantidadeProdutos = produtoService.findEnabled().size();
-
+		
 		view.addObject("movimentacoes", movimentacoes);
 		view.addObject("QTDmovimentacoes", quantidadeMovimentacao);
 		view.addObject("QTDprodutos", quantidadeProdutos);
-		view.addObject("usuario", usuario);
+		view.addObject("usuario", usuario);	
 
 		return view;
 	}

@@ -1,7 +1,6 @@
 package br.com.acqua.service.storage;
 
 import br.com.acqua.controller.FileUploadController;
-import br.com.acqua.controller.ProdutoController;
 import br.com.acqua.entity.LayoutProd;
 import br.com.acqua.service.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +20,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.stream.Stream;
+
+/**
+ * @Author Jairo Nascimento
+ * @Date 14/08/2020
+ */
 
 @Service
 public class FileSystemStorageService implements StorageService {
@@ -65,14 +69,6 @@ public class FileSystemStorageService implements StorageService {
         return layout;
     }
 
-    private String createURIFileLayout(String filename) {
-
-        Path path = load(filename);
-        String url = MvcUriComponentsBuilder.fromMethodName(FileUploadController.class, "serveFile",
-                path.getFileName().toString()).build().toUri().toString();
-
-        return url;
-    }
 
     @Override
     public Stream<Path> loadAll() {
@@ -122,5 +118,13 @@ public class FileSystemStorageService implements StorageService {
         catch (IOException e) {
             throw new StorageException("Could not initialize storage", e);
         }
+    }
+
+    private String createURIFileLayout(String filename) {
+        Path path = load(filename);
+        String url = MvcUriComponentsBuilder.fromMethodName(FileUploadController.class, "serveFile",
+                path.getFileName().toString()).build().toUri().toString();
+
+        return url;
     }
 }

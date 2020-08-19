@@ -7,6 +7,11 @@ import org.springframework.web.multipart.MultipartFile;
 import java.nio.file.Path;
 import java.util.stream.Stream;
 
+/**
+ * @Author Jairo Nascimento
+ * @Date 14/08/2020
+ */
+
 public interface StorageService {
 
     LayoutProd store(MultipartFile file);

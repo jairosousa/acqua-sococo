@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	  xmlns:th="http://www.thymeleaf.org"
-	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	  layout:decorator="layout/layoutPadrao">
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/layoutPadrao">
 
 <head>
-	<title>Detalhe de Produto</title>
+<title>Detalhe de Produto</title>
 </head>
 
 <section layout:fragment="conteudo">
@@ -36,30 +36,52 @@
 					<div class="row">
 						<div class="col-lg-12">
 							<div class="text-center col-lg-4">
-								<img style="width: 238px; height: 238px"
-									 th:src="@{/avatar-prod/load/{id}(id=${produto.avatar.id})}" />
+								<span th:if="${produto.avatar != null}" >
+									<img style="width: 238px; height: 238px"
+										th:src="@{/avatar-prod/load/{id}(id=${produto.avatar.id})}" />
+								</span>
+								<span th:if="${produto.avatar == null}" >
+									<img th:src="@{/imagens/default.png}" />
+								</span>
 							</div>
 							<div class="col-lg-6">
 
 								<h1 th:text="${produto.nome}"></h1>
-								<label>Descrição: </label>
+								<label>Código: </label>
+								<span th:text="${produto.id}"></span>
+								<br />
+								<label>Descrição: </label> 
 								<span th:text="${produto.descricao}"></span>
 								<br />
-								<label>Código de Barras: </label>
-								<span class="card-text" th:text="${produto.codigoDeBarras}"></span>
+								<label>Marca: </label>
+								<span th:text="${produto.marca}"></span>
 								<br />
-								<label>Status: </label>
-								<span class="card-text" th:text="${produto.ativo ? 'Ativo' : 'Inativo'}"></span>
+								<label>Volume: </label>
+								<span th:text="${produto.volume}"></span>
 								<br />
-								<label>Data do Cadastro: </label> <span class="card-text"
-																		th:text="${{produto.dataCadastro}}"></span>
+								<label>Categoria: </label>
+								<span th:text="${produto.categoria}"></span>
+								<br />
+								<label>Código de Barras: </label> 
+								<span class="card-text" th:text="${produto.codigoDeBarras}"></span> 
+								<br />
+								<label>Status: </label> 
+								<span class="card-text" th:text="${produto.ativo ? 'Ativo' : 'Inativo'}"></span> 
+								<br />
+								<label>Data do Cadastro: </label>
+								<span class="card-text" th:text="${{produto.dataCadastro}}"></span>
+								<br />
+								<label>Layout: </label>
+								<span class="card-text" th:if="${produto.layout != null}">
+									    <a th:href="${produto.layout.url}" th:text="${produto.layout.filename}" target="_blank"/>
+                                    </span>
 							</div>
 
 						</div>
 
 						<div class="col-lg-12">
 							<a th:href="@{/produtos}" class="col-lg-offset-10 btn btn-warning"><span
-									class="glyphicon glyphicon-circle-arrow-left"> VOLTAR</span></a>
+								class="glyphicon glyphicon-circle-arrow-left"> VOLTAR</span></a>
 						</div>
 					</div>
 				</div>

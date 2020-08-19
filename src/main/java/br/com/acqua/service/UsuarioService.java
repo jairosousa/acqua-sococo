@@ -39,45 +39,45 @@ public class UsuarioService {
 				usuarioSalvo = usuarioRepository.findOne(usuario.getId());
 
 			}
-
+			
 			if (usuario.getId() == null){
 				System.out.println("CRIPT SENHA");
 				String hash = new BCryptPasswordEncoder().encode(usuario.getPassword());
 				usuario.setPassword(hash);
-
-			}
+				
+			} 
 
 			adcPermissoesUsuario(usuario);
-
+			
 //Metodo para salvar a senha do usuario caso ela venha vazia da view
 
 			if (usuarioSalvo != null && usuario.getPassword().isEmpty()){
 				usuario.setPassword(usuarioSalvo.getPassword());
 			}
+			
+			
 
-
-
-
+			
 			usuarioRepository.save(usuario);
 
 		} catch (DataIntegrityViolationException e) {
 			throw new IllegalArgumentException("Algo deu errado ao salvar este operador");
 		}
 	}
-
+	
 	public void atualizarSenha(Usuario usuario) {
 		try {
 			Usuario usuarioSalvo = usuarioRepository.findByUsername(usuario.getUsername());
-
+			
 			System.out.println("senha "+usuario.getPassword());
 			System.out.println("senha 2"+usuarioSalvo.getPassword());
 
-
+			
 			if (!usuario.getPassword().isEmpty()){
 				String hash = new BCryptPasswordEncoder().encode(usuario.getPassword());
 				usuarioSalvo.setPassword(hash);
-			}
-
+			}	
+			
 
 
 			usuarioRepository.save(usuarioSalvo);
@@ -96,10 +96,10 @@ public class UsuarioService {
 			if (usuario.getDataCadastro() == null) {
 				usuario.setDataCadastro(Date.valueOf(LocalDate.now()));
 			}
-		}
-
+		} 
+		
 		permissaos.add(permissaoRepository.findByNome(usuario.getPerfil()));
-
+		
 
 		usuario.setPermissaos(permissaos);
 	}
@@ -111,7 +111,7 @@ public class UsuarioService {
 	public Usuario findById(Long id) {
 		return usuarioRepository.findOne(id);
 	}
-
+	
 	public Usuario findByUserName(String userName){
 		return usuarioRepository.findByUsername(userName);
 	}

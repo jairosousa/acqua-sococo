@@ -24,17 +24,17 @@ public class AvatarProdService {
 	public AvatarProd saveOrUpdate(AvatarProd avatar) {
 		return avatarRepository.save(avatar);
 	}
-
+	
 	public AvatarProd buscarPorFile(byte[] avatar){
 		return avatarRepository.findByAvatar(avatar);
 	}
-
+	
 	public AvatarProd buscarTitulo(String titulo){
 		return avatarRepository.findByTitulo(titulo);
 	}
 
 	public AvatarProd getAvatarByUpload(MultipartFile file) {
-
+		
 		AvatarProd avatar = new AvatarProd();
 
 		if (file != null && file.getSize() > 0) {
@@ -61,15 +61,15 @@ public class AvatarProdService {
 	public AvatarProd findById(Long id) {
 		return avatarRepository.findOne(id);
 	}
-
+	
 	public byte[] imageToByte() throws IOException {
-		InputStream is = null;
-		byte[] buffer = null;
-		is = new FileInputStream("src/main/resources/static/imagens/default.png");
-		buffer = new byte[is.available()];
-		is.read(buffer);
-		is.close();
-		return buffer;
+	    InputStream is = null;
+	    byte[] buffer = null;
+	    is = new FileInputStream("src/main/resources/static/imagens/default.png");
+	    buffer = new byte[is.available()];
+	    is.read(buffer);
+	    is.close();
+	    return buffer;
 	}
 
 }

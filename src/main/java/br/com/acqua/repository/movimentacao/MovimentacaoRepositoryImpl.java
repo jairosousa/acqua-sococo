@@ -81,13 +81,13 @@ public class MovimentacaoRepositoryImpl implements MovimentacaoRepositoryQuery {
 	}
 
 	private Predicate[] criarRestricoes(MovimentacaoFilter movimentacaoFilter, CriteriaBuilder builder,
-										Root<Movimentacao> root) {
+			Root<Movimentacao> root) {
 
 		List<Predicate> predicates = new ArrayList<>();
 
 		if (!StringUtils.isEmpty(movimentacaoFilter.getCodigo())) {
 			if (movimentacaoFilter.getProduto() != null) {
-
+				
 				predicates.add(builder.equal(root.get(Movimentacao_.produto), movimentacaoFilter.getProduto().getId()));
 			}else{
 				predicates.add(builder.equal(root.get(Movimentacao_.produto), 0));

@@ -14,6 +14,6 @@ public class SecurityConfig {
 	}
 
 	public static void main(String[] args) {
-		System.out.println(new BCryptPasswordEncoder().encode("sococo"));
+		System.out.println(new BCryptPasswordEncoder().encode("user"));
 	}
 }

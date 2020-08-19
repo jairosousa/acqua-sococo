@@ -28,32 +28,32 @@ import br.com.acqua.service.UsuarioService;
 @Controller
 @RequestMapping("/usuarios")
 public class UsuarioController {
-
+	
 	private static final int BUTTONS_TO_SHOW = 5;
 	private static final int INITIAL_PAGE = 0;
 	private static final int INITIAL_PAGE_SIZE = 5;
 	private static final int[] PAGE_SIZES = { 5, 10, 20 };
 
 	private static final String CADASTRO_VIEW = "usuario/usuario-cadastro";
-
+	
 	String naoEditarSenha = "";
-
+	
 	@Autowired
 	private UsuarioService usuarioService;
-
+	
 	@GetMapping("/novo")
 	public ModelAndView novo(){
 		Usuario usuario = new Usuario();
-
+	
 		ModelAndView view = new ModelAndView(CADASTRO_VIEW);
 		view.addObject("usuario", usuario);
 		return view;
 	}
-
+	
 	@GetMapping
 	public ModelAndView showPersonsPage(@RequestParam("pageSize") Optional<Integer> pageSize,
-										@RequestParam("page") Optional<Integer> page) {
-
+			@RequestParam("page") Optional<Integer> page) {
+		
 		ModelAndView modelAndView = new ModelAndView("usuario/usuarios");
 
 		int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
@@ -69,7 +69,7 @@ public class UsuarioController {
 		modelAndView.addObject("pager", pager);
 		return modelAndView;
 	}
-
+	
 	@RequestMapping(method = RequestMethod.POST )
 	public String salvar(@Validated Usuario usuario, Errors errors, RedirectAttributes attributes  ){
 
@@ -103,15 +103,15 @@ public class UsuarioController {
 
 		}
 	}
-
-
+	
+	
 	@RequestMapping(value = "/atualizar-senha", method = RequestMethod.POST)
 	public String atualizarSenha(@RequestParam("password") String password, @Validated Usuario usuario, Errors errors, RedirectAttributes attributes  ){
-
+		
 //		if(errors.hasErrors()){
 //			return CADASTRO_VIEW;
 //		}
-//
+//		
 		System.out.println("senha "+password);
 		String userName = "";
 		userName = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -128,18 +128,18 @@ public class UsuarioController {
 		}
 	}
 
-
+	
 	@GetMapping(value = {"{id}"})
 	public ModelAndView editar(@PathVariable("id") Optional<Long> id, @ModelAttribute("usuario") Usuario usuario) {
-
-
-
+		
+		
+		
 		ModelAndView mv = new ModelAndView(CADASTRO_VIEW);
 		if(id.isPresent()){
 			usuario = usuarioService.findById(id.get());
 			usuario.setPerfil(usuario.getPermissoes().get(0).getNome());
 			mv.addObject("usuario", usuario);
-
+			
 			naoEditarSenha = usuario.getPassword();
 			System.out.println(">> Pass " + usuario.getPassword());
 			System.out.println(">> nome " + usuario.getNome());
@@ -147,13 +147,13 @@ public class UsuarioController {
 		}
 		return mv;
 	}
-
+	
 	@DeleteMapping(value="{id}")
 	private String excluir(@PathVariable Long id, RedirectAttributes attributes) {
-
+		
 		usuarioService.delete(id);
-		attributes.addFlashAttribute("mensagem", "Usuário excluído com sucesso!");
+		attributes.addFlashAttribute("mensagem", "Usuário excluído com sucesso!");	
 		return "redirect:/usuarios";
 	}
-
+	
 }

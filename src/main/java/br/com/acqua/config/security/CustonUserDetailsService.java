@@ -43,10 +43,6 @@ public class CustonUserDetailsService implements UserDetailsService{
 			Collection<GrantedAuthority> permissoesPorUsuario = buscarPermissoes(connection,
 					username, PERMISSOES_POR_USUARIO);
 			
-			for (GrantedAuthority grantedAuthority : permissoesPorUsuario) {
-				System.out.println(grantedAuthority.getAuthority());
-			}
-
 			userDetails.getAuthorities().addAll(permissoesPorUsuario);
 
 			return userDetails;

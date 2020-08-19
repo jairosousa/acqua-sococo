@@ -4,6 +4,11 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
+/**
+ * @Author Jairo Nascimento
+ * @Date 14/08/2020
+ */
+
 @Entity
 @Table(name = "layouts")
 public class LayoutProd implements Serializable {
@@ -14,8 +19,10 @@ public class LayoutProd implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String filename;
 
+    @Column(nullable = false)
     private String url;
 
     public Long getId() {
