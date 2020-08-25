@@ -1,5 +1,7 @@
 package br.com.acqua.entity;
 
+import org.hibernate.annotations.Type;
+
 import java.io.Serializable;
 
 import javax.persistence.*;
@@ -21,7 +23,7 @@ public class AvatarProd implements Serializable {
 	private String tipo;
 
 	@Lob
-	@Column
+	@Type(type="org.hibernate.type.BinaryType")
 	private byte[] avatar;
 
 	public Long getId() {

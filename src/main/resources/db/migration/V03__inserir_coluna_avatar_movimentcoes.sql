@@ -1,1 +1,1 @@
-ALTER TABLE movimentacao ADD avatar_id BIGINT(20) NULL DEFAULT NULL;
+ALTER TABLE movimentacao ADD column avatar_id BIGINT NULL DEFAULT NULL;

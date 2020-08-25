@@ -5,7 +5,6 @@ import br.com.acqua.entity.AvatarProd;
 import br.com.acqua.entity.Movimentacao;
 import br.com.acqua.entity.Produto;
 import br.com.acqua.entity.Usuario;
-import br.com.acqua.repository.AvatarProdRepository;
 import br.com.acqua.repository.MovimentacaoRepository;
 import br.com.acqua.repository.ProdutoRepository;
 import br.com.acqua.repository.UserRepository;
@@ -46,29 +45,15 @@ public class MovimentacaoService {
              */
             if (movimentacao.getUsuario() == null) movimentacao.setUsuario(user);
 
-//            /**
-//             * Caso a movimentação não tenha Avatar
-//             */
-//            if (movimentacao.getId() != null) {
-//                if (movimentacao.getAvatar() == null) {
-//                    if (movimentacao.getProduto().getAvatar() != null) {
-//						AvatarProd avatar = getNovoAvatar(movimentacao.getProduto().getAvatar());
-//                    	movimentacao.setAvatar(avatar);
-//					}
-//                }
-//            }
-
             /**
              * Setar o avatar de Produto para a movimentação
              */
             if (StringUtils.isEmpty(movimentacao.getId())) {
-                if (movimentacao.getAvatar() == null) {
-                    if (movimentacao.getProduto().getAvatar() != null) {
-                        AvatarProd avatar = getNovoAvatar(movimentacao.getProduto().getAvatar());
-                        movimentacao.setAvatar(avatar);
-                    }
+                if (movimentacao.getProduto().getAvatar() != null) {
+                    AvatarProd avatar = getNovoAvatar(movimentacao.getProduto().getAvatar());
+                    movimentacao.setAvatar(avatar);
                 }
-            };
+            }
 
             movimentacaoRepository.save(movimentacao);
 

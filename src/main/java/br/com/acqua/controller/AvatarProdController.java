@@ -64,8 +64,10 @@ public class AvatarProdController {
 		HttpHeaders headers = new HttpHeaders();
 
 		headers.setContentType(MediaType.valueOf(avatar.getTipo()));
-
-		InputStream is = new ByteArrayInputStream(avatar.getAvatar());
+		InputStream is = null;
+		if (avatar.getAvatar() != null ) {
+			is = new ByteArrayInputStream(avatar.getAvatar());
+		}
 
 		try {
 			return new ResponseEntity<>(IOUtils.toByteArray(is), headers, HttpStatus.OK);

@@ -125,7 +125,7 @@
 
                             <tr>
                                 <td class="text-center" colspan="11"
-                                    th:if="${#lists.isEmpty(produtos)}">Nenhum produto foi
+                                    th:if="${#lists.isEmpty(produtos.content)}">Nenhum produto foi
                                     encontrado
                                 </td>
                             </tr>
@@ -136,9 +136,7 @@
 
 
                         <!-- Paginação -->
-
-
-                        <div class="paginacao">
+                        <div class="paginacao" th:if="${!#lists.isEmpty(produtos.content)}">
                             <div class="form-group col-lg-1">
                                 <select class="form-control pagination"
                                         id="pageSizeSelectProduto">
@@ -177,6 +175,7 @@
                                 </ul>
                             </div>
                         </div>
+
 
 
                     </div>
