@@ -70,12 +70,15 @@ public class AvatarProdController {
 		}
 
 		try {
+			if (is != null)
 			return new ResponseEntity<>(IOUtils.toByteArray(is), headers, HttpStatus.OK);
+
+			return new ResponseEntity<>(null, headers, HttpStatus.OK);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
 			try {
-				is.close();
+				if (is != null) is.close();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
