@@ -26,6 +26,7 @@ public class ProdutoService {
     @Autowired
     private AvatarProdService avatarService;
 
+    @Transactional(readOnly = false)
     public void salvar(Produto produto) {
 
         try {

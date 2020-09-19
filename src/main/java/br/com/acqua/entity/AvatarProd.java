@@ -22,7 +22,7 @@ public class AvatarProd implements Serializable {
 	@Column(nullable = false)
 	private String tipo;
 
-	@Lob
+//	@Lob
 	@Type(type="org.hibernate.type.BinaryType")
 	private byte[] avatar;
 

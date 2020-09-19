@@ -15,6 +15,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.text.SimpleDateFormat;
@@ -32,6 +33,7 @@ public class MovimentacaoService {
     @Autowired
     private UserRepository userRepository;
 
+    @Transactional(readOnly = false)
     public void salvar(Movimentacao movimentacao, String userName) {
 
         Usuario user = userRepository.findByUsername(userName);
