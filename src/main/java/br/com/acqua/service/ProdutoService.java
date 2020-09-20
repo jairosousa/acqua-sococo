@@ -13,8 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
-import java.sql.Date;
-import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -31,7 +30,7 @@ public class ProdutoService {
 
         try {
             if (StringUtils.isEmpty(produto.getId())) {
-                produto.setDataCadastro(Date.valueOf(LocalDate.now()));
+                produto.setDataCadastro(new Date());
                 produto.setEnabled(true);
             }
             produtosRepository.save(produto);
