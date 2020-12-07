@@ -183,10 +183,10 @@ public class MovimentacaoController {
 
     @GetMapping("/countMesAno")
     public ResponseEntity<List<MovimentacaoMesAnoDTO>> getCountMovimentacoesByMesAno() {
-        // ModelAndView view = new ModelAndView("index");
+         ModelAndView view = new ModelAndView("index");
 
-        // view.addObject("countMovimentacoesByMesAno",
-        // movimentacaoService.getCountMovimentacoesByMesAno() );
+         view.addObject("countMovimentacoesByMesAno",
+         movimentacaoService.getCountMovimentacoesByMesAno() );
         return ResponseEntity.status(HttpStatus.OK).body(movimentacaoService.getCountMovimentacoesByMesAno());
     }
 
